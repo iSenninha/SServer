@@ -1,10 +1,11 @@
-package cn.senninha.equipment.message;
+package cn.senninha.equipment.message.res;
 
+import cn.senninha.equipment.message.CmdConstant;
 import cn.senninha.sserver.lang.message.BaseMessage;
 import cn.senninha.sserver.lang.message.Message;
 
-@Message(cmd = CmdConstant.RES_START_CHARGE)
-public class ResStartCharge extends BaseMessage {
+@Message(cmd = CmdConstant.RES_STOP_CHARGE)
+public class ResStopCharge extends BaseMessage {
 	private short blank0;
 	private short blank1;
 	private byte connector;
