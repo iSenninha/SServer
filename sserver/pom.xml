@@ -50,6 +50,11 @@
 			<artifactId>apache-log4j-extras</artifactId>
 			<version>1.2.17</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.2</version>
+		</dependency>
 	</dependencies>
 
 	<!--这个是为了改变编译方式，因为默认使用JDK1.3编译，不支持注解 -->

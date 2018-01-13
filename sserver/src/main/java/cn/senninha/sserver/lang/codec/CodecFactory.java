@@ -2,6 +2,7 @@ package cn.senninha.sserver.lang.codec;
 
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -144,6 +145,9 @@ public class CodecFactory {
 	 * @return
 	 */
 	public BaseMessage decode(ByteBuffer buf){
+		//设置为小端模式
+		buf.order(ByteOrder.LITTLE_ENDIAN);
+		
 		byte version = buf.get();
 		byte versionIndex = buf.get();
 		short cmd = buf.getShort();
@@ -177,6 +181,9 @@ public class CodecFactory {
 	 */
 	public ByteBuffer encode(BaseMessage message){
 		ByteBuffer buf = ByteBuffer.allocate(1024 * 16);
+		//设置为小端模式
+		buf.order(ByteOrder.LITTLE_ENDIAN);
+		
 		Message annotation = message.getClass().getAnnotation(Message.class);
 		short cmd = 0;
 		if(annotation != null) {
