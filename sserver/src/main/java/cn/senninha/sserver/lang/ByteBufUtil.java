@@ -34,10 +34,11 @@ public class ByteBufUtil {
 		buffer.flip();
 		int length = buffer.limit();
 		byte[] src = new byte[4 + length];
-		src[0] = (byte) ((Constant.START & 0xff_00) >> 8);
-		src[1] = (byte) ((Constant.START & 0x00_ff));
-		src[2] = (byte) ((length & 0xff_00) >> 8);
-		src[3] = (byte) ((length & 0x00_ff));
+		/** 小端 */
+		src[1] = (byte) ((Constant.START & 0xff_00) >> 8);
+		src[0] = (byte) ((Constant.START & 0x00_ff));
+		src[3] = (byte) ((length & 0xff_00) >> 8);
+		src[2] = (byte) ((length & 0x00_ff));
 		for(int i = 4; i < src.length; i++) {
 			src[i] = buffer.get();
 		}

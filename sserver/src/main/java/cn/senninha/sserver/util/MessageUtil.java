@@ -23,4 +23,36 @@ public class MessageUtil {
 		}
 		return (byte) (checkSum & 0xff);
 	}
+	
+	/**
+	 * ascii转为string
+	 * @param b 多少个字节都兼容吧orz
+	 * @return
+	 */
+	public static String byte32ChangeToString(byte[] b){
+		StringBuilder sb = new StringBuilder(32);
+		for(int i = 0 ; i < b.length ; i++){
+			sb.append((char) b[i]);
+		}
+		return sb.toString();
+	}
+	
+	/**
+	 * string转为byte[]
+	 * @param s
+	 * @return
+	 */
+	public static byte[] stringToByteArray(String s){
+		byte[] b = new byte[s.length()];
+		for(int i = 0 ; i < s.length() ; i++){
+			b[i] = (byte) s.charAt(i);
+		}
+		return b;
+	}
+	
+	public static void main(String[] args){
+		String s = "ABC";
+		byte[] b = stringToByteArray(s);
+		System.out.println(byte32ChangeToString(b));
+	}
 }
