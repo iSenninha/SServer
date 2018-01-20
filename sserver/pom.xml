@@ -57,6 +57,14 @@
 			<artifactId>mybatis</artifactId>
 			<version>3.4.5</version>
 		</dependency>
+
+		<!-- 驱动 顺便吐操mybatis的报错信息。。。。尼玛。。。-->
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client-jre7</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<!--这个是为了改变编译方式，因为默认使用JDK1.3编译，不支持注解 -->
@@ -96,7 +104,7 @@
 
 		<resources>
 			<resource>
-				<directory>src/resources</directory>
+				<directory>src/resources/*</directory>
 				<includes>
 					<include>*.properties</include>
 					<include>*.xml</include>

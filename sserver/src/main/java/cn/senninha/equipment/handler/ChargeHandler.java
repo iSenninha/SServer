@@ -9,5 +9,5 @@ import cn.senninha.sserver.lang.dispatch.MessageHandler;
  */
 @MessageHandler
 public class ChargeHandler {
-	
+
 }
