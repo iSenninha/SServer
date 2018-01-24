@@ -12,6 +12,8 @@ public enum LoggerSystem {
 	NET,
 	/** 结算 */
 	CHECKOUT,
+    /** web接口访问日志 */
+    WEB_INTERFACE_ACCESS
 	;
 	
 	public Logger getLogger() {
