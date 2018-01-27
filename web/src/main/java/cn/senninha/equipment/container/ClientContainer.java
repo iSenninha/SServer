@@ -60,7 +60,7 @@ public class ClientContainer {
      * @param equipmentId
      * @return
      */
-	public Client get(String equipmentId){
+    Client get(String equipmentId){
         if(equipmentId == null){
             throw new IllegalArgumentException("equipmentId can not be null");
         }

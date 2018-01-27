@@ -1,6 +1,7 @@
 package cn.senninha.equipment.handler;
 
 import cn.senninha.equipment.container.ClientContainer;
+import cn.senninha.equipment.container.PushHelper;
 import cn.senninha.equipment.message.CmdConstant;
 import cn.senninha.sserver.lang.dispatch.MessageHandler;
 import cn.senninha.sserver.lang.dispatch.MessageInvoke;
@@ -14,6 +15,6 @@ public class LoginHandler {
     @MessageInvoke(cmd = CmdConstant.REQ_LOGIN)
     public void login(String sessionId, BaseMessage message){
         System.out.println(message.toString());
-        ClientContainer.getInstance().get(sessionId).getCtx().write(message);
+        PushHelper.sendMessage(sessionId, message);
     }
 }

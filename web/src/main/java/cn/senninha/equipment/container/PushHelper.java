@@ -16,7 +16,7 @@ public class PushHelper {
      * @param client
      * @param message
      */
-    public static void sendMessage(Client client, BaseMessage message){
+    private static void sendMessage(Client client, BaseMessage message){
         if(client == null || message == null){
             return;
         }
@@ -32,16 +32,6 @@ public class PushHelper {
      */
     public static void sendMessage(String equipmentId, BaseMessage message){
         sendMessage(ClientContainer.getInstance().get(equipmentId), message);
-    }
-
-    /**
-     * 群发信息
-     * @param message
-     */
-    public static void sendMessage(List<Client> list, BaseMessage message){
-        for(Client client : list){
-            sendMessage(client, message);
-        }
     }
 
     /**
