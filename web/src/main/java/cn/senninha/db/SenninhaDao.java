@@ -10,5 +10,5 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Documented
 public @interface SenninhaDao {
-
+    public Class entity() default Object.class;
 }

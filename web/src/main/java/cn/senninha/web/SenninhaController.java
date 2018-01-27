@@ -42,6 +42,7 @@ public class SenninhaController {
         if (user == null) {
             request.getSession().setAttribute("user", "user");
             j = Json.valueOf(ResConstant.NOT_LOGIN);
+
         } else {
             j = Json.valueOf(ResConstant.LOGIN);
         }

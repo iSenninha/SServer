@@ -1,7 +1,10 @@
 package cn.senninha.db;
 
+import cn.senninha.db.dao.CommonDao;
 import cn.senninha.db.dao.TestDao;
 import cn.senninha.db.entity.Test;
+import cn.senninha.sserver.lang.ClassFilter;
+import cn.senninha.sserver.lang.ClassUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -21,7 +24,7 @@ public class DbManager {
     private static DbManager instance;
     private Logger logger = LoggerFactory.getLogger(DbManager.class);
     private SqlSessionFactory factory;
-    private Map<Class<Object>, Object> daoContainer;
+    private Map<Class<Object>, Class> daoContainer;
 
     /**
      * 单例获取
@@ -52,6 +55,17 @@ public class DbManager {
             FileInputStream is = new FileInputStream(uri + "db/dbConfig.xml");
             factory = new SqlSessionFactoryBuilder().build(is);
             daoContainer = new HashMap<>();
+            ClassUtil.scanPackage("cn.senninha.db", false, new ClassFilter<Object>() {
+                @Override
+                public boolean filter(Class<Object> clazz) {
+                    SenninhaDao dao = clazz.getAnnotation(SenninhaDao.class);
+                    if(dao != null){
+                        daoContainer.put(dao.entity(), clazz);
+                        logger.error("储存实体添加{}", dao.entity().getName());
+                    }
+                    return false;
+                }
+            });
         } catch (Exception e) {
             logger.error("加载数据库错误" + e.toString());
             System.exit(-1);

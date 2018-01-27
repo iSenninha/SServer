@@ -44,6 +44,16 @@
 			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss:SSS} %p][%t][%c][%m]%n" />
 		</layout>
 	</appender>
+
+    <!-- web接口访问日志 -->
+    <appender name="web_access" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="logs/senninha/web_access/web_access" />
+        <param name="DatePattern" value="'.'yyyyMMdd" />
+        <param name="Append" value="true" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss:SSS} %p][%t][%c][%m]%n" />
+        </layout>
+    </appender>
 	
 	<!-- ###########################logger#################################### -->
 	<!-- 网络通信层 -->
@@ -57,8 +67,14 @@
 		<level value = "info"></level>
 		<appender-ref ref = "checkout"></appender-ref>
 	</logger>
-	
-	<!-- 根logger的设置 -->
+
+    <!--  -->
+    <logger name = "WEB_INTERFACE_ACCESS">
+        <level value = "info"></level>
+        <appender-ref ref = "web_access"></appender-ref>
+    </logger>
+
+    <!-- 根logger的设置 -->
 	<root>
 		<level value="info"></level>
 		<appender-ref ref="console" />

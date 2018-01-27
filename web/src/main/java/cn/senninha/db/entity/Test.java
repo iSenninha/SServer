@@ -3,7 +3,7 @@ package cn.senninha.db.entity;
 /**
  * Coded by senninha on 18-1-20
  */
-public class Test {
+public class Test extends BaseEntity{
     private int id;
     private String name;
 
