@@ -1,8 +1,5 @@
 package cn.senninha.sserver.handler;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import cn.senninha.equipment.container.ClientContainer;
 import cn.senninha.equipment.container.client.Client;
 import cn.senninha.equipment.message.CmdConstant;
@@ -11,15 +8,17 @@ import cn.senninha.sserver.lang.ByteBufUtil;
 import cn.senninha.sserver.lang.codec.CodecFactory;
 import cn.senninha.sserver.lang.dispatch.HandleContext;
 import cn.senninha.sserver.lang.message.BaseMessage;
-import static cn.senninha.sserver.util.MessageUtil.*;
-
-import java.nio.ByteOrder;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.AttributeKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.nio.ByteOrder;
+
+import static cn.senninha.sserver.util.MessageUtil.byte32ChangeToString;
 
 /**
  * 拆包并分发到对应的业务Handler
@@ -53,6 +52,7 @@ public class DispatchHandler extends LengthFieldBasedFrameDecoder {
 						ReqLogin login = (ReqLogin) message;
 						String equipmentId = byte32ChangeToString(login.getEquipmentId().getB());
 						if(equipmentId != null){
+						    sessionId = equipmentId;
 							Client c = new Client();
 							c.setCtx(ctx);
 							c.setEquipmentId(equipmentId);
@@ -62,7 +62,7 @@ public class DispatchHandler extends LengthFieldBasedFrameDecoder {
 						}
 					}
 				}
-				HandleContext.getInstance().dispatch(1, message);
+				HandleContext.getInstance().dispatch(sessionId, message);
 			}
 		}
 		return null;
@@ -70,7 +70,7 @@ public class DispatchHandler extends LengthFieldBasedFrameDecoder {
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		Integer sessionId = (Integer) (ctx.channel().attr(AttributeKey.valueOf("sessionId"))).get();
+		String sessionId = (String) (ctx.channel().attr(AttributeKey.valueOf("sessionId"))).get();
 		if (sessionId == null) {
 			logger.error("匿名连接掉线：{}", ctx.channel().remoteAddress().toString());
 		} else {
@@ -98,7 +98,7 @@ public class DispatchHandler extends LengthFieldBasedFrameDecoder {
 	 * @param sessionId
 	 */
 	private void disconnect(ChannelHandlerContext ctx) {
-		Integer sessionId = (Integer) (ctx.channel().attr(AttributeKey.valueOf("sessionId"))).get();
+		String sessionId = (String) (ctx.channel().attr(AttributeKey.valueOf("sessionId"))).get();
 		ctx.disconnect();
 		if (sessionId == null) {
 			return;

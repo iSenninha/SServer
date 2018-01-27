@@ -5,6 +5,9 @@ import cn.senninha.sserver.lang.codec.field.Field32Bytes;
 import cn.senninha.sserver.lang.message.BaseMessage;
 import cn.senninha.sserver.lang.message.Message;
 
+/**
+ * 启动充电
+ */
 @Message(cmd = CmdConstant.RES_START_CHARGE)
 public class ResStartCharge extends BaseMessage {
 	private short blank0;
@@ -13,8 +16,13 @@ public class ResStartCharge extends BaseMessage {
 	/** 充电生效类型 0：即时充电，1：定时启动充电，2：预约充电 */
 	private int chargeEffectType;
 	private int blank2;
-	/** 充电策略，不明 */
+	/** 充电策略，0:充满为止
+     1:时间控制充电
+     2:金额控制充电
+     3:电量控制充电 */
 	private int chargeStrategy;
+	/** 1s,0.01元,0.01kw */
+	private int chargeStrategyParam;
 	/** 预约启动时间 */
 	private long bookStartTime;
 	/** 用户卡号 */
@@ -83,6 +91,29 @@ public class ResStartCharge extends BaseMessage {
 	public void setOfflineCharge(int offlineCharge) {
 		this.offlineCharge = offlineCharge;
 	}
-	
-	
+
+    public int getChargeStrategyParam() {
+        return chargeStrategyParam;
+    }
+
+    public void setChargeStrategyParam(int chargeStrategyParam) {
+        this.chargeStrategyParam = chargeStrategyParam;
+    }
+
+    @Override
+    public String toString() {
+        return "ResStartCharge{" +
+                "blank0=" + blank0 +
+                ", blank1=" + blank1 +
+                ", connector=" + connector +
+                ", chargeEffectType=" + chargeEffectType +
+                ", blank2=" + blank2 +
+                ", chargeStrategy=" + chargeStrategy +
+                ", chargeStrategyParam=" + chargeStrategyParam +
+                ", bookStartTime=" + bookStartTime +
+                ", userId=" + userId +
+                ", chargeOffline=" + chargeOffline +
+                ", offlineCharge=" + offlineCharge +
+                '}';
+    }
 }

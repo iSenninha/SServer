@@ -26,8 +26,13 @@ public class HandleContext {
 		
 	}
 	
-	public void dispatch(int sessionId, BaseMessage message) {
-	//TODO
+	public void dispatch(String sessionId, BaseMessage message) {
+	    addCommand(0, new Task(0, false, 0, TimeUnit.MILLISECONDS, new Runnable() {
+            @Override
+            public void run() {
+                HandlerFactory.getInstance().dispatch(message, sessionId);
+            }
+        }));
 	}
 	
 	/**

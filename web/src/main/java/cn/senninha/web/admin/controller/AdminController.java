@@ -21,7 +21,7 @@ public class AdminController {
      * @param password
      * @return
      */
-    @RequestMapping(path = "/login")
+    @RequestMapping
     @ResponseBody
     public Json login(HttpServletRequest request, String username, String password) {
         Json j = null;
