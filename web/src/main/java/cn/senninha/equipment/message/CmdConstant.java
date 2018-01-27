@@ -22,6 +22,8 @@ public class CmdConstant {
 	public static final short RES_CHARGE_INFO = 201;
 	/** 应答上传未上传历史充电记录 */
 	public static final short RES_HISTORY_CHARGE_INFO = 401;
+	/** 下发时间 */
+	public static final short RES_TIME = 3;
 	
 	
 	/** --------------------------------------------------- */
@@ -32,5 +34,9 @@ public class CmdConstant {
 	public static final short REQ_CHARGE_INFO = 202;
 	/** 心跳 */
 	public static final short REQ_HEART = 101;
-	
+	/** 应答时间设置 */
+	public static final short REQ_TIME = 4;
+	/** 充电过程中状态 */
+	public static final short REQ_CHARGE_STATUS = 104;
+
 }
