@@ -38,5 +38,7 @@ public class CmdConstant {
 	public static final short REQ_TIME = 4;
 	/** 充电过程中状态 */
 	public static final short REQ_CHARGE_STATUS = 104;
+	/** 应答开始充电执行结果 */
+	public static final short REQ_START_CHARGE = 8;
 
 }

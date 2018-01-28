@@ -1,16 +1,5 @@
 package cn.senninha.sserver.lang.codec;
 
-import java.lang.reflect.Field;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import cn.senninha.equipment.message.res.ResStartCharge;
 import cn.senninha.sserver.handler.EncodeHandler;
 import cn.senninha.sserver.lang.ClassFilter;
@@ -20,6 +9,16 @@ import cn.senninha.sserver.lang.codec.impl.WrapperCodec;
 import cn.senninha.sserver.lang.message.BaseMessage;
 import cn.senninha.sserver.lang.message.Message;
 import cn.senninha.sserver.lang.message.MessageWrapperAnnotation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Field;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 使用编解码工厂来自动化封装协议
@@ -99,8 +98,11 @@ public class CodecFactory {
 				
 				/** 扫描具体通信协议**/
 				Message m = clazz.getAnnotation(Message.class);
-				System.out.println(clazz.toGenericString());
 				if (m != null) {
+					if(!BaseMessage.class.isAssignableFrom(clazz)){
+						logger.error("必须继承BaseMessage {}", clazz.getSimpleName());
+						System.exit(0);
+					}
 					Short protocol = m.cmd();
 					Field[] fields = clazz.getDeclaredFields();
 					List<Codec> list = new ArrayList<Codec>(fields.length);

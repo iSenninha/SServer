@@ -1,5 +1,12 @@
 package cn.senninha.sserver.lang.dispatch;
 
+import cn.senninha.sserver.lang.ClassFilter;
+import cn.senninha.sserver.lang.ClassUtil;
+import cn.senninha.sserver.lang.message.BaseMessage;
+import cn.senninha.sserver.logger.LoggerManager;
+import cn.senninha.sserver.logger.LoggerSystem;
+import org.slf4j.Logger;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -7,12 +14,8 @@ import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.senninha.sserver.lang.ClassFilter;
-import cn.senninha.sserver.lang.ClassUtil;
-import cn.senninha.sserver.lang.message.BaseMessage;
-
 /**
- * 缓存业务handler的容器,单例子获取的时候会自动扫描获取所有的业务Handler({@link HelloHandler}
+ * 缓存业务handler的容器,单例子获取的时候会自动扫描获取所有的业务Handler({@link cn.senninha.equipment.handler.ChargeHandler}
  * 
  * @author senninha on 2017年11月8日
  *
@@ -21,6 +24,8 @@ public class HandlerFactory {
 	private Map<Integer, MessageInvokeWrapper> invokeContainer;
 
 	private static HandlerFactory instance;
+
+	private Logger logger = LoggerManager.getLogger(LoggerSystem.SYSTEM_INIT);
 
 	private HandlerFactory() {
 		init();
@@ -49,7 +54,8 @@ public class HandlerFactory {
 								Parameter[] params = m.getParameters();
 								if (!(params[0].getType() == String.class)
 										|| !(BaseMessage.class.isAssignableFrom(params[1].getType()))) {
-									System.err.println("业务Handler函数参数必须遵循(int,BaseMessage)的格式");
+									logger.error("业务Handler函数参数必须遵循(int,BaseMessage)的格式, 不符合的类为：{}", clazz.getSimpleName());
+									System.exit(0);
 								} else {
 									MessageInvokeWrapper miw = new MessageInvokeWrapper(obj, m);
 									invokeContainer.put(cmd, miw);

@@ -8,13 +8,14 @@ import cn.senninha.sserver.lang.ByteBufUtil;
 import cn.senninha.sserver.lang.codec.CodecFactory;
 import cn.senninha.sserver.lang.dispatch.HandleContext;
 import cn.senninha.sserver.lang.message.BaseMessage;
+import cn.senninha.sserver.logger.LoggerManager;
+import cn.senninha.sserver.logger.LoggerSystem;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.AttributeKey;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.nio.ByteOrder;
 
@@ -27,7 +28,7 @@ import static cn.senninha.sserver.util.MessageUtil.byte32ChangeToString;
  *
  */
 public class DispatchHandler extends LengthFieldBasedFrameDecoder {
-	private Logger logger = LoggerFactory.getLogger(DispatchHandler.class);
+	private Logger logger = LoggerManager.getLogger(LoggerSystem.NET);
 
 	public DispatchHandler(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength, int lengthAdjustment,
 			int initialBytesToStrip, boolean failFast) {
@@ -74,7 +75,8 @@ public class DispatchHandler extends LengthFieldBasedFrameDecoder {
 		if (sessionId == null) {
 			logger.error("匿名连接掉线：{}", ctx.channel().remoteAddress().toString());
 		} else {
-			// TODO
+			ClientContainer.getInstance().remove(sessionId);
+			logger.error("{}掉线", sessionId);
 		}
 	}
 

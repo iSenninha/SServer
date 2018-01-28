@@ -57,4 +57,37 @@ public class ReqChargeInfo extends BaseMessage {
 
     /** 0本地刷卡启动，1后台启动，2本地管理员启动 */
     private byte startMode;
+
+	@Override
+	public String toString() {
+		return "ReqChargeInfo{" +
+				"blank0=" + blank0 +
+				", blank1=" + blank1 +
+				", equipmentId=" + equipmentId +
+				", connector=" + connector +
+				", userId=" + userId +
+				", startTime=" + startTime +
+				", stopTime=" + stopTime +
+				", timeLength=" + timeLength +
+				", beginSoc=" + beginSoc +
+				", stopSoc=" + stopSoc +
+				", chargeStopReason=" + chargeStopReason +
+				", curChargeElectricity=" + curChargeElectricity +
+				", electricityBeforeCharge=" + electricityBeforeCharge +
+				", electricityAfterCharge=" + electricityAfterCharge +
+				", blank___fule=" + blank___fule +
+				", balanceBeforeCharge=" + balanceBeforeCharge +
+				", curIndex=" + curIndex +
+				", total=" + total +
+				", blank2=" + blank2 +
+				", strategy=" + strategy +
+				", strategyParam=" + strategyParam +
+				", vin_0=" + vin_0 +
+				", vin_1=" + vin_1 +
+				", vin_2=" + vin_2 +
+				", car=" + car +
+				", charge48Hours=" + charge48Hours +
+				", startMode=" + startMode +
+				'}';
+	}
 }

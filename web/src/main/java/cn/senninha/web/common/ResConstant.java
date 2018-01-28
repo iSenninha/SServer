@@ -7,6 +7,8 @@ package cn.senninha.web.common;
 public enum ResConstant {
     LOGIN(0, "已经登陆"),
     NOT_LOGIN(-1, "未登陆"),
+    SUCCESS(0, "成功"),
+    DONT_EXIST(1, "不存在的协议"),
 
     /**-----通用类-------------*/
     MISS_PARAM(1, "缺少参数");

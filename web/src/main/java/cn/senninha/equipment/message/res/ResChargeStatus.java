@@ -1,6 +1,7 @@
 package cn.senninha.equipment.message.res;
 
 import cn.senninha.equipment.message.CmdConstant;
+import cn.senninha.sserver.lang.message.BaseMessage;
 import cn.senninha.sserver.lang.message.Message;
 
 /**
@@ -8,7 +9,7 @@ import cn.senninha.sserver.lang.message.Message;
  * Coded by senninha on 18-1-27
  */
 @Message(cmd = CmdConstant.RES_STATUS)
-public class ResChargeStatus {
+public class ResChargeStatus extends BaseMessage{
     private short __;
     private short ___;
 }
