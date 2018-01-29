@@ -24,6 +24,9 @@ public class ServerConfig {
         try {
             String path = ServerConfig.class.getResource("/").toString();
             path = path.substring(path.indexOf(":") + 1);
+            if(path.contains(":")){
+                path = "classes/";
+            }
             File file = new File(path + "application.properties");
             if(!file.exists() || file.isDirectory()) {
                 System.err.println("配置文件读取错误" + file.getAbsolutePath());

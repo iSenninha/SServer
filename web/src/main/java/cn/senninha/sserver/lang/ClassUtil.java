@@ -1,12 +1,12 @@
 package cn.senninha.sserver.lang;
 
+import cn.senninha.sserver.lang.message.Message;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-
-import cn.senninha.sserver.lang.message.Message;
 
 /**
  * 包扫描工具类
@@ -15,6 +15,7 @@ import cn.senninha.sserver.lang.message.Message;
  *
  */
 public class ClassUtil {
+    private static final String PACKAGE = "BOOT-INF.classes.";
 
 	public static void main(String[] args) {
 		/** ClassFilter 接口里提供扫描到的接口的处理方法 **/
@@ -43,7 +44,9 @@ public class ClassUtil {
 		
 		if(classpath.contains("tomcat-juli.jar")){//处理tomcat流氓改cp的问题
 			classpath = ClassUtil.class.getResource("/").toString();   
-		}
+		}else if(classpath.indexOf(".jar") == classpath.length() - 4){
+		    packageName = PACKAGE + packageName;
+        }
 		
 		String[] classpaths = null;
 		classpaths = classpath.split(File.pathSeparator);
@@ -90,7 +93,6 @@ public class ClassUtil {
 					scanJar(entry, targetPackage, noLimit, filter);
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -99,7 +101,7 @@ public class ClassUtil {
 	/**
 	 * 扫描jar包
 	 * 
-	 * @param jar
+	 * @param entry
 	 * @param targetPackage
 	 *            目标包
 	 * @param filter
@@ -111,6 +113,9 @@ public class ClassUtil {
 			entryName = convertToPackageFromJarEntry(entryName);
 			if (noLimit || entryName.lastIndexOf(targetPackage) == 0) {
 				try {
+                    if(entryName.contains(PACKAGE)){
+                        entryName = entryName.substring(entryName.indexOf(PACKAGE) + PACKAGE.length());
+                    }
 					@SuppressWarnings("rawtypes")
 					Class clazz = Class.forName(entryName, false, ClassUtil.class.getClassLoader());
 					filter.filter(clazz);
