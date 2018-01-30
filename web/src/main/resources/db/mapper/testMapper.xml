@@ -29,5 +29,8 @@
         insert INTO test (name) VALUES (#{name, jdbcType=VARCHAR})
     </insert>
 
+    <select id = "selectByPage" resultMap = "testMap" parameterType="map">
+        select *from test
+    </select>
 
 </mapper>
