@@ -189,7 +189,8 @@ public class CodecFactory {
 		Message annotation = message.getClass().getAnnotation(Message.class);
 		short cmd = 0;
 		if(annotation != null) {
-			cmd = annotation.cmd();			
+			cmd = annotation.cmd();
+			message.setCmd(cmd);    //就给你设置个cmd吧，方便打日志
 		}else {
 			logger.error("必须发送被@Message注解过的协议" + message.getClass().getCanonicalName());
 			System.exit(-1);
@@ -219,7 +220,7 @@ public class CodecFactory {
 	
 	/**
 	 * 获取协议内部封装类的处理方法
-	 * @param clazz
+	 * @param cmd
 	 * @return
 	 */
 	public MessageWrapper getMessageWrapper(short cmd) {

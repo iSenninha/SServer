@@ -28,7 +28,6 @@ public class PushHelper {
 
         ChannelHandlerContext ctx = client.getCtx();
         ctx.write(message);
-        logger.info("发送{},cmd={}", client.getEquipmentId(), message.getCmd());
     }
 
     /**

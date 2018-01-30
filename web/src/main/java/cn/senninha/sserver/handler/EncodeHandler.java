@@ -2,6 +2,7 @@ package cn.senninha.sserver.handler;
 
 import java.nio.ByteBuffer;
 
+import io.netty.util.AttributeKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +25,9 @@ public class EncodeHandler extends ChannelOutboundHandlerAdapter {
 				ByteBuffer buffer = CodecFactory.getInstance().encode(message);
 				ByteBuf buf = ByteBufUtil.convert(buffer);
 				ctx.writeAndFlush(buf);
-			} catch (Exception e) {
+                String sessionId = (String) (ctx.channel().attr(AttributeKey.valueOf("sessionId"))).get();
+                logger.info("发送{},cmd={}", sessionId, message.getCmd());
+            } catch (Exception e) {
 				logger.error("发送报文出错:", e);
 			}
 		}
