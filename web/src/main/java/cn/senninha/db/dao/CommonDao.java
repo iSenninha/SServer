@@ -1,6 +1,7 @@
 package cn.senninha.db.dao;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 增删改查接口
@@ -12,4 +13,5 @@ public interface CommonDao<T> {
     public int update(T t);
     public int insert(T t);
     public int delete(int id);
+    public List<T> selectByPage(Map<String, Object> map);
 }
